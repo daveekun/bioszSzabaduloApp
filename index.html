@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&display=swap" rel="stylesheet">
+    <title>Biosz szabaduloszoba</title>
+</head>
+<body onload="startTime()" id="bd">
+    <div class="screen">
+        <div class="time">
+            <p id="txt"></p>
+        </div>
+        <div id="content">
+            <p id="level">Level1</p>
+            <form>
+                <input type="text" name="value" id="val" placeholder="Titkos mondat">
+            </form>
+            <button onclick="onSubmit()" id="btn">Ellenorzes</button>
+            <p id="tip"></p>
+        </div>
+    </div>
+    <script>
+        let input1 = document.getElementById("val")     
+        let levelELement = document.getElementById("level")   
+        let tipElement = document.getElementById("tip")
+        let btn = document.getElementById("btn")
+        // timescript
+        const start = Date.now() + 3600000;
+        function startTime() {
+          const today = new Date();
+          let m = Math.floor((start - today.getTime()) / 60000)
+          let s = Math.floor((start - today.getTime() - m*60000) / 1000)
+
+          
+          document.getElementById("txt").innerHTML = "00" + ":" + m + ":" + s
+          if(today.getTime() >= start){
+                input1.style.display = "none"
+                btn.style.display = "none"
+                levelELement.innerHTML = "Sikertelen probalkozas"
+                tipElement.innerHTML = "az ajto zarja 1111"
+                document.getElementById("txt").style.display = "none"
+        }
+          setTimeout(startTime, 1000);
+          
+        }
+        //content manager
+        let elsorejtettmondat = "KIRA magazinos feladata"
+        let masodikrejtettmondat = "piros,sarga,kek"
+        let harmadikrejtettmondat = "AB1oszElegJ0"
+        let level = 1
+        const onSubmit = () => {
+            if(level == 1)
+            {
+                if (input1.value == elsorejtettmondat)
+                {
+                    level += 1
+                    input1.value = ""
+                    input1.placeholder = "Szinek vesszovel elvalasztva(kisbetu)"
+                    levelELement.innerHTML = "level " + level
+                    tipElement.innerHTML="Samu bal lengobordaja"
+                }
+                else 
+                {
+                    input1.value = ""
+                }
+            } else if(level==2)
+            {
+                //Kromatografia
+                if (input1.value == masodikrejtettmondat)
+                {
+                    level += 1
+                    input1.value = ""
+                    input1.placeholder = "Professzor jelszava"
+                    levelELement.innerHTML = "level " + level
+                    tipElement.innerHTML = "128128 a zar kodja"
+                }else 
+                {
+                    input1.value = ""
+                }
+            }
+            else if(level==3)
+            {
+                if (input1.value == harmadikrejtettmondat)
+                {
+                    input1.style.display = "none"
+                    btn.style.display = "none"
+                    levelELement.innerHTML = "Sikeresen teljesitve"
+                    tipElement.innerHTML = "az ajto zarja 1111"
+                }else 
+                {
+                    input1.value = ""
+                }
+            }
+        }
+    </script>
+</body>
+</html> 
